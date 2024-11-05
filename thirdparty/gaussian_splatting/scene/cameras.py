@@ -48,25 +48,25 @@ class Camera(nn.Module):
         # image is real image 
         if not isinstance(image, tuple):
             if getgtisint8():
-                self.original_image = (image*255).to(torch.uint8).to(self.data_device)
+                self._original_image = (image*255).to(torch.uint8).to(self.data_device)
             else:
                 if "camera_" not in image_name:
-                    self.original_image = image.clamp(0.0, 1.0).to(self.data_device)
+                    self._original_image = image.clamp(0.0, 1.0).to(self.data_device)
                 else:
-                    self.original_image = image.clamp(0.0, 1.0).half().to(self.data_device)
+                    self._original_image = image.clamp(0.0, 1.0).half().to(self.data_device)
             
             
-            self.image_width = self.original_image.shape[2]
-            self.image_height = self.original_image.shape[1]
+            self.image_width = self._original_image.shape[2]
+            self.image_height = self._original_image.shape[1]
             # if gt_alpha_mask is not None:
-            #     self.original_image *= gt_alpha_mask.to(self.data_device)
+            #     self._original_image *= gt_alpha_mask.to(self.data_device)
             # else:
-            #     self.original_image *= torch.ones((1, self.image_height, self.image_width), device=self.data_device)
+            #     self._original_image *= torch.ones((1, self.image_height, self.image_width), device=self.data_device)
 
         else:
             self.image_width = image[0]
             self.image_height = image[1]
-            self.original_image = None
+            self._original_image = image
         
 
 
@@ -118,6 +118,35 @@ class Camera(nn.Module):
         else :
             self.rayo = None
             self.rayd = None
+
+    @property
+    def original_image(self):
+        if not isinstance(self._original_image, tuple):
+            return self._original_image
+        
+        # dataset_readers.py
+
+        image = Image.open(self.image_path)
+
+        resolution = self._original_image
+        resized_image_rgb = PILtoTorch(image, resolution) # hard coded half resolution
+
+        gt_image = resized_image_rgb[:3, ...]
+
+        # if resized_image_rgb.shape[1] == 4:
+        #     loaded_mask = resized_image_rgb[3:4, ...]
+
+        # camera_utils.py
+
+        image = gt_image
+
+        if getgtisint8():
+            return (image*255).to(torch.uint8).to(self.data_device)
+        else:
+            if "camera_" not in self.image_name:
+                return image.clamp(0.0, 1.0).to(self.data_device)
+            else:
+                return image.clamp(0.0, 1.0).half().to(self.data_device)
 
 
 
