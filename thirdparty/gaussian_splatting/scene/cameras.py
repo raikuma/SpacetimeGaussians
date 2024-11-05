@@ -21,7 +21,7 @@ from helper_model import pix2ndc
 from helper_train import getgtisint8
 import random 
 from PIL import Image
-from utils.graphics_utils import PILtoTorch
+from utils.general_utils import PILtoTorch
 
 class Camera(nn.Module):
     def __init__(self, colmap_id, R, T, FoVx, FoVy, image, gt_alpha_mask,
