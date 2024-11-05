@@ -20,6 +20,9 @@ from kornia import create_meshgrid
 from helper_model import pix2ndc
 from helper_train import getgtisint8
 import random 
+from PIL import Image
+from utils.graphics_utils import PILtoTorch
+
 class Camera(nn.Module):
     def __init__(self, colmap_id, R, T, FoVx, FoVy, image, gt_alpha_mask,
                  image_name, uid,
@@ -134,7 +137,7 @@ class MiniCam:
 
 class Camerass(nn.Module):
     def __init__(self, colmap_id, R, T, FoVx, FoVy, image, gt_alpha_mask,
-                 image_name, uid,
+                 image_name, image_path, uid,
                  trans=np.array([0.0, 0.0, 0.0]), scale=1.0, data_device = "cuda", near=0.01, far=100.0, timestamp=0.0, rayo=None, rayd=None, rays=None, cxr=0.0,cyr=0.0,
                  ):
         super(Camerass, self).__init__()
@@ -146,6 +149,7 @@ class Camerass(nn.Module):
         self.FoVx = FoVx
         self.FoVy = FoVy
         self.image_name = image_name
+        self.image_path = image_path
         self.timestamp = timestamp
         self.fisheyemapper = None
 
@@ -161,20 +165,20 @@ class Camerass(nn.Module):
         if not isinstance(image, tuple):
            
             if getgtisint8():
-                self.original_image = (image*255).to(torch.uint8).to(self.data_device)
+                self._original_image = (image*255).to(torch.uint8).to(self.data_device)
             else:
                 if "camera_" not in image_name:
-                    self.original_image = image.clamp(0.0, 1.0).to(self.data_device)
+                    self._original_image = image.clamp(0.0, 1.0).to(self.data_device)
                 else:
-                    self.original_image = image.clamp(0.0, 1.0).half().to(self.data_device)
+                    self._original_image = image.clamp(0.0, 1.0).half().to(self.data_device)
                 print("read one")# lazy loader already in it
-                self.image_width = self.original_image.shape[2]
-                self.image_height = self.original_image.shape[1]
+                self.image_width = self._original_image.shape[2]
+                self.image_height = self._original_image.shape[1]
 
         else:
             self.image_width = image[0] 
             self.image_height = image[1] 
-            self.original_image = None
+            self._original_image = image
         
         self.image_width = 2 * self.image_width
         self.image_height = 2 * self.image_height # 
@@ -224,3 +228,32 @@ class Camerass(nn.Module):
         else :
             self.rayo = None
             self.rayd = None
+
+    @property
+    def _original_image(self):
+        if not isinstance(self._original_image, tuple):
+            return self._original_image
+        
+        # dataset_readers.py
+
+        image = Image.open(self.image_path)
+
+        resolution = self._original_image
+        resized_image_rgb = PILtoTorch(image, resolution) # hard coded half resolution
+
+        gt_image = resized_image_rgb[:3, ...]
+
+        # if resized_image_rgb.shape[1] == 4:
+        #     loaded_mask = resized_image_rgb[3:4, ...]
+
+        # camera_utils.py
+
+        image = gt_image
+
+        if getgtisint8():
+            return (image*255).to(torch.uint8).to(self.data_device)
+        else:
+            if "camera_" not in self.image_name:
+                return image.clamp(0.0, 1.0).to(self.data_device)
+            else:
+                return image.clamp(0.0, 1.0).half().to(self.data_device)

@@ -241,7 +241,8 @@ def readColmapCamerasTechnicolor(cam_extrinsics, cam_intrinsics, images_folder, 
             assert os.path.exists(image_path), "Image {} does not exist!".format(image_path)
 
             
-            image = Image.open(image_path)
+            # image = Image.open(image_path)
+            image = torch.empty(0)
 
 
             if j == startime:

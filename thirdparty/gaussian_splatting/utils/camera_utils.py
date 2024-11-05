@@ -178,7 +178,7 @@ def loadCamv2ss(args, id, cam_info, resolution_scale, nogt=False):
         return Camerass(colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                     FoVx=cam_info.FovX, FoVy=cam_info.FovY, 
                     image=gt_image, gt_alpha_mask=loaded_mask,
-                    image_name=cam_info.image_name, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
+                    image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
     else:
 
         if camerapose is not None:
@@ -189,7 +189,7 @@ def loadCamv2ss(args, id, cam_info, resolution_scale, nogt=False):
         return Camerass(colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                     FoVx=cam_info.FovX, FoVy=cam_info.FovY, 
                     image=resolution, gt_alpha_mask=loaded_mask,
-                    image_name=cam_info.image_name, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
+                    image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
    
 
 
@@ -242,7 +242,7 @@ def cameraList_from_camInfosv2(cam_infos, resolution_scale, args, ss=False):
             camera_list.append(loadCamv2(args, id, c, resolution_scale))
     else:
         for id, c in enumerate(cam_infos):
-            camera_list.append(loadCamv2ss(args, id, c, resolution_scale))
+            camera_list.append(loadCamv2ss(args, id, c, resolution_scale, nogt=True))
             print("id", id)
 
     return camera_list
