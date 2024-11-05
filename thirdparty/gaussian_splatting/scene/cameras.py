@@ -230,7 +230,7 @@ class Camerass(nn.Module):
             self.rayd = None
 
     @property
-    def _original_image(self):
+    def original_image(self):
         if not isinstance(self._original_image, tuple):
             return self._original_image
         
