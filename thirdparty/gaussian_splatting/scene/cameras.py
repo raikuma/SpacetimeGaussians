@@ -25,7 +25,7 @@ from utils.general_utils import PILtoTorch
 
 class Camera(nn.Module):
     def __init__(self, colmap_id, R, T, FoVx, FoVy, image, gt_alpha_mask,
-                 image_name, uid,
+                 image_name, image_path, uid,
                  trans=np.array([0.0, 0.0, 0.0]), scale=1.0, data_device = "cuda", near=0.01, far=100.0, timestamp=0.0, rayo=None, rayd=None, rays=None, cxr=0.0,cyr=0.0,
                  ):
         super(Camera, self).__init__()
@@ -37,6 +37,7 @@ class Camera(nn.Module):
         self.FoVx = FoVx
         self.FoVy = FoVy
         self.image_name = image_name
+        self.image_path = image_path
         self.timestamp = timestamp
 
         try:

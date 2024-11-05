@@ -72,7 +72,7 @@ def loadCamv2(args, id, cam_info, resolution_scale, nogt=False):
         return Camera(colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                     FoVx=cam_info.FovX, FoVy=cam_info.FovY, 
                     image=gt_image, gt_alpha_mask=loaded_mask,
-                    image_name=cam_info.image_name, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
+                    image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
     else:
         if camerapose is not None:
             rays_o, rays_d = 1, cameradirect
@@ -82,7 +82,7 @@ def loadCamv2(args, id, cam_info, resolution_scale, nogt=False):
         return Camera(colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                     FoVx=cam_info.FovX, FoVy=cam_info.FovY, 
                     image=resolution, gt_alpha_mask=loaded_mask,
-                    image_name=cam_info.image_name, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
+                    image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
 
 
 
@@ -131,7 +131,7 @@ def loadCamv2timing(args, id, cam_info, resolution_scale):
     return Camera(colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                   FoVx=cam_info.FovX, FoVy=cam_info.FovY, 
                   image=gt_image, gt_alpha_mask=loaded_mask,
-                  image_name=cam_info.image_name, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
+                  image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
 
 
 def loadCamv2ss(args, id, cam_info, resolution_scale, nogt=False):
@@ -251,7 +251,7 @@ def loadCamnogt(args, id, cam_info, resolution_scale):
     return Camera(colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                   FoVx=cam_info.FovX, FoVy=cam_info.FovY, 
                   image=resolution, gt_alpha_mask=loaded_mask,
-                  image_name=cam_info.image_name, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d)
+                  image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d)
 
 
 
