@@ -172,10 +172,11 @@ def getcolmapsinglen3d(folder, offset):
         exit(exit_code)
     print(img_undist_cmd)
 
-    removeinput = "rm -r " + inputimagefolder
-    exit_code = os.system(removeinput)
-    if exit_code != 0:
-        exit(exit_code)
+    # removeinput = "rm -r " + inputimagefolder
+    # exit_code = os.system(removeinput)
+    # if exit_code != 0:
+    #     exit(exit_code)
+    shutil.rmtree(inputimagefolder)
 
     files = os.listdir(folder + "/sparse")
     os.makedirs(folder + "/sparse/0", exist_ok=True)
@@ -238,10 +239,11 @@ def getcolmapsingleimundistort(folder, offset):
         exit(exit_code)
     print(img_undist_cmd)
 
-    removeinput = "rm -r " + inputimagefolder
-    exit_code = os.system(removeinput)
-    if exit_code != 0:
-        exit(exit_code)
+    # removeinput = "rm -r " + inputimagefolder
+    # exit_code = os.system(removeinput)
+    # if exit_code != 0:
+    #     exit(exit_code)
+    shutil.rmtree(inputimagefolder)
 
     files = os.listdir(folder + "/sparse")
     os.makedirs(folder + "/sparse/0", exist_ok=True)
@@ -300,10 +302,11 @@ def getcolmapsingleimdistort(folder, offset):
         exit(exit_code)
     print(img_undist_cmd)
 
-    removeinput = "rm -r " + inputimagefolder
-    exit_code = os.system(removeinput)
-    if exit_code != 0:
-        exit(exit_code)
+    # removeinput = "rm -r " + inputimagefolder
+    # exit_code = os.system(removeinput)
+    # if exit_code != 0:
+    #     exit(exit_code)
+    shutil.rmtree(inputimagefolder)
 
     files = os.listdir(folder + "/sparse")
     os.makedirs(folder + "/sparse/0", exist_ok=True)

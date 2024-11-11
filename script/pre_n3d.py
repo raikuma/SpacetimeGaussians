@@ -83,8 +83,8 @@ def preparecolmapdynerf(folder, offset=0):
             continue
 
         assert imagepath.exists
-        # shutil.copy(imagepath, imagesavepath)
-        imagesavepath.symlink_to(imagepath.resolve())
+        shutil.copy(imagepath, imagesavepath)
+        # imagesavepath.symlink_to(imagepath.resolve())
 
 
 def convertdynerftocolmapdb(path, offset=0, downscale=1):

@@ -46,7 +46,7 @@ def loadCamv2(args, id, cam_info, resolution_scale, nogt=False):
         scale = float(global_down) * float(resolution_scale)
         resolution = (int(orig_w / scale), int(orig_h / scale))
 
-    resolution = (int(orig_w / 2), int(orig_h / 2))
+    # resolution = (int(orig_w / 2), int(orig_h / 2))
     cameradirect = cam_info.hpdirecitons
     camerapose = cam_info.pose 
     loaded_mask = None
@@ -159,7 +159,7 @@ def loadCamv2ss(args, id, cam_info, resolution_scale, nogt=False):
         scale = float(global_down) * float(resolution_scale)
         resolution = (int(orig_w / scale), int(orig_h / scale))
 
-    resolution = (int(orig_w / 2), int(orig_h / 2))
+    # resolution = (int(orig_w / 2), int(orig_h / 2))
     cameradirect = cam_info.hpdirecitons
     camerapose = cam_info.pose 
     loaded_mask = None
