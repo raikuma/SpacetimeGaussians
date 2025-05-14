@@ -1,7 +1,7 @@
 {
   "resolution": 2,
   "model": "ours_full",
-  "scaling_lr": 0.0015,
+  "scaling_lr": 0.003,
   "preprocesspoints": 0,
   "test_iteration": 10000,
   "duration": 300,
