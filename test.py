@@ -148,7 +148,7 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
         torchvision.utils.save_image(gt, os.path.join(gts_path, '{0:05d}'.format(idx) + ".png"))
         image_names.append('{0:05d}'.format(idx) + ".png")
 
-    
+    exit(0)
 
     for idx, view in enumerate(tqdm(views, desc="release gt images cuda memory for timing")):
         view.original_image = None #.detach()  
