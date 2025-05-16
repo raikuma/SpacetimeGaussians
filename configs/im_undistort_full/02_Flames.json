@@ -9,7 +9,7 @@
   "emsstart": 30000,
   "desicnt": 6,
   "duration": 50,
-  "rgbfunction": "None",
+  "rgbfunction": "sandwichnoactss",
   "loader": "technicolor",
   "rdpip": "train_ours_full"
 }
