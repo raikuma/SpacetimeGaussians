@@ -74,7 +74,7 @@ def loadCamv2(args, id, cam_info, resolution_scale, nogt=False):
                     image=gt_image, gt_alpha_mask=loaded_mask,
                     image_name=cam_info.image_name, image_path=cam_info.image_path, uid=id, data_device=args.data_device, near=cam_info.near, far=cam_info.far, timestamp=cam_info.timestamp, rayo=rays_o, rayd=rays_d,cxr=cam_info.cxr,cyr=cam_info.cyr)
     else:
-        cameradirect = cam_info.hpdirections
+        cameradirect = cam_info.hpdirecitons
         camerapose = cam_info.pose 
 
         if camerapose is not None:
