@@ -560,9 +560,15 @@ def fetchPly(path):
     plydata = PlyData.read(path)
     vertices = plydata['vertex']
     positions = np.vstack([vertices['x'], vertices['y'], vertices['z']]).T
-    times = np.vstack([vertices['t']]).T
+    try:
+        times = np.vstack([vertices['t']]).T
+    except:
+        times = np.zeros((positions.shape[0], 1), dtype=np.float32)  # Default to zero if 't' is not present
     colors = np.vstack([vertices['red'], vertices['green'], vertices['blue']]).T / 255.0
-    normals = np.vstack([vertices['nx'], vertices['ny'], vertices['nz']]).T
+    try:
+        normals = np.vstack([vertices['nx'], vertices['ny'], vertices['nz']]).T
+    except:
+        normals = np.zeros_like(positions)  # Default to zero if normals are not present
     return BasicPointCloud(points=positions, colors=colors, normals=normals, times=times)
 
 def storePly(path, xyzt, rgb):
