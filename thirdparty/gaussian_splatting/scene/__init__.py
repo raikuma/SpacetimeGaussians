@@ -52,6 +52,9 @@ class Scene:
         elif loader == "technicolor" or loader == "technicolorvalid" :
             scene_info = sceneLoadTypeCallbacks["Technicolor"](args.source_path, args.images, args.eval, multiview, duration=duration)
         
+        elif loader == "technicolor_single" or loader == "technicolorvalid_single" :
+            scene_info = sceneLoadTypeCallbacks["TechnicolorSingle"](args, args.source_path, args.images, args.eval, multiview, duration=duration)
+
         elif loader == "immersive" or loader == "immersivevalid" or loader == "immersivess"  :
             scene_info = sceneLoadTypeCallbacks["Immersive"](args.source_path, args.images, args.eval, multiview, duration=duration)
         elif loader == "immersivevalidss":
