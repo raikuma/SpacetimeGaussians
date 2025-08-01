@@ -984,7 +984,7 @@ def readColmapCamerasTechnicolorSingle(args, cam_extrinsics, cam_intrinsics, ima
                 image_name = image_path.split('/')[-1]
             else:
                 image_path = os.path.join(images_folder,f"images/{extr.name[:-4]}", "%04d.png" % j)
-                image_name = os.path.join(f"{extr.name[:-4]}", image_path.split('/')[-1])
+                image_name = os.path.join(f"{extr.name[:-4]}", image_path.split('/')[-1]).split('/')[0]
 
             cxr =   ((intr.params[2] )/  width - 0.5) 
             cyr =   ((intr.params[3] ) / height - 0.5) 
