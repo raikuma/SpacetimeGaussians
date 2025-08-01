@@ -124,12 +124,12 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
     else:
         render, GRsetting, GRzer = getrenderpip(rdpip) 
 
-
     for idx, view in enumerate(tqdm(views, desc="Rendering and metric progress")):
         renderingpkg = render(view, gaussians, pipeline, background, scaling_modifier=1.0, basicfunction=rbfbasefunction,  GRsetting=GRsetting, GRzer=GRzer) # C x H x W
         rendering = renderingpkg["render"]
         rendering = torch.clamp(rendering, 0, 1.0)
         gt = view.original_image[0:3, :, :].cuda().float()
+
         ssims.append(ssim(rendering.unsqueeze(0),gt.unsqueeze(0))) 
 
         psnrs.append(psnr(rendering.unsqueeze(0), gt.unsqueeze(0)))
@@ -139,6 +139,7 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
         rendernumpy = rendering.permute(1,2,0).detach().cpu().numpy()
         gtnumpy = gt.permute(1,2,0).detach().cpu().numpy()
         
+        # ssimv2 =  sk_ssim(rendernumpy, gtnumpy, multichannel=True, channel_axis=2, data_range=)
         ssimv2 = 0.0
         ssimsv2.append(ssimv2)
 
@@ -148,10 +149,10 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
         torchvision.utils.save_image(gt, os.path.join(gts_path, '{0:05d}'.format(idx) + ".png"))
         image_names.append('{0:05d}'.format(idx) + ".png")
 
-    exit(0)
+    
 
     for idx, view in enumerate(tqdm(views, desc="release gt images cuda memory for timing")):
-        view.original_image = None #.detach()  
+        # view.original_image = None #.detach()  
         torch.cuda.empty_cache()
 
     # start timing
@@ -229,7 +230,6 @@ def run_test(dataset : ModelParams, iteration : int, pipeline : PipelineParams, 
             render_setnogt(dataset.model_path, "mv", scene.loaded_iter, scene.getTestCameras(), gaussians, pipeline, background, rbfbasefunction, rdpip)
 
 if __name__ == "__main__":
-    
 
     args, model_extract, pp_extract, multiview =gettestparse()
-    run_test(model_extract, args.test_iteration, pp_extract, args.skip_train, args.skip_test, multiview, args.duration,  rgbfunction=args.rgbfunction, rdpip=args.rdpip, loader=args.valloader)
+    run_test(model_extract, 30000, pp_extract, args.skip_train, args.skip_test, multiview, args.duration,  rgbfunction=args.rgbfunction, rdpip=args.rdpip, loader=args.valloader)
