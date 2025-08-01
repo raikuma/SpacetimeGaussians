@@ -993,10 +993,10 @@ def readColmapCamerasTechnicolorSingle(args, cam_extrinsics, cam_intrinsics, ima
             cy = intr.params[3]
     
             assert os.path.exists(image_path), "Image {} does not exist!".format(image_path)
-            if not args.dataloader:
-                image = Image.open(image_path)
-            else:
-                image = np.empty(0)
+            # if not args.dataloader:
+            #     image = Image.open(image_path)
+            # else:
+            image = np.empty(0)
 
             timestamp = (j-startime)/duration * args.frame_ratio
             if timestamp < args.time_duration[0] or timestamp > args.time_duration[1]:
