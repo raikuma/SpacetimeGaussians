@@ -3,7 +3,7 @@
   "model": "ours_full",
   "scaling_lr": 0.005,
   "trbfslinit": 2.0,
-  "preprocesspoints": 3,
+  "preprocesspoints": 0,
   "test_iteration": 25000,
   "densify": 3,
   "desicnt": 12,
