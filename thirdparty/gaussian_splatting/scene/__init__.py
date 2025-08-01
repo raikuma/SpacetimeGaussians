@@ -81,7 +81,7 @@ class Scene:
 
         if shuffle:
             random.shuffle(scene_info.train_cameras)  # Multi-res consistent random shuffling
-            random.shuffle(scene_info.test_cameras)  # Multi-res consistent random shuffling
+            # random.shuffle(scene_info.test_cameras)  # Multi-res consistent random shuffling
 
  
 
@@ -90,7 +90,7 @@ class Scene:
 
         for resolution_scale in resolution_scales:
             print("Loading Training Cameras")  
-            if loader in ["colmapvalid", "colmapmv", "immersivevalid","technicolorvalid", "immersivevalidss", "imv2valid"]:         
+            if loader in ["colmapvalid", "colmapmv", "immersivevalid","technicolorvalid", "immersivevalidss", "imv2valid", "technicolorvalid_single"]:         
                 self.train_cameras[resolution_scale] = [] # no training data
 
 
@@ -104,7 +104,7 @@ class Scene:
             
             
             print("Loading Test Cameras")
-            if loader  in ["colmapvalid", "immersivevalid", "colmap", "technicolorvalid", "technicolor", "imv2","imv2valid"]: # we need gt for metrics
+            if loader  in ["colmapvalid", "immersivevalid", "colmap", "technicolorvalid", "technicolor", "imv2","imv2valid", "technicolor_single", "technicolorvalid_single"]: # we need gt for metrics
                 self.test_cameras[resolution_scale] = cameraList_from_camInfosv2(scene_info.test_cameras, resolution_scale, args)
             elif loader in ["immersivess", "immersivevalidss"]:
                 self.test_cameras[resolution_scale] = cameraList_from_camInfosv2(scene_info.test_cameras, resolution_scale, args, ss=True)
