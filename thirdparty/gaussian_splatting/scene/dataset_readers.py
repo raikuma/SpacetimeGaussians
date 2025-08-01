@@ -999,12 +999,8 @@ def readColmapCamerasTechnicolorSingle(args, cam_extrinsics, cam_intrinsics, ima
             image = np.empty(0)
 
             if j == startime:
-                # cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, image_path=image_path, image_name=image_name, width=width, height=height, near=near, far=far, timestamp=(j-startime)/duration, pose=1, hpdirecitons=1, cxr=cxr, cyr=cyr)
-                # cam_info = CameraInfo(uid=uid, R=R, T=T, fl_x=focal_length_x, fl_y=focal_length_y, FovY=FovY, FovX=FovX, image=image, depth=None, image_path=image_path, image_name=image_name, width=width, height=height, timestamp=timestamp, cx=cx, cy=cy)
                 cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, image_path=image_path, image_name=image_name, width=width, height=height, near=near, far=far, timestamp=(j-startime)/duration, pose=1, hpdirecitons=1, cxr=cxr, cyr=cyr)
             else:
-                # cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, image_path=image_path, image_name=image_name, width=width, height=height, near=near, far=far, timestamp=(j-startime)/duration, pose=None, hpdirecitons=None,  cxr=cxr, cyr=cyr)
-                # cam_info = CameraInfo(uid=uid, R=R, T=T, fl_x=focal_length_x, fl_y=focal_length_y, FovY=FovY, FovX=FovX, image=image, depth=None, image_path=image_path, image_name=image_name, width=width, height=height, timestamp=timestamp, cx=cx, cy=cy)
                 cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, image_path=image_path, image_name=image_name, width=width, height=height, near=near, far=far, timestamp=(j-startime)/duration, pose=None, hpdirecitons=None,  cxr=cxr, cyr=cyr)
             cam_infos.append(cam_info)
     sys.stdout.write('\n')
