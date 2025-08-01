@@ -123,10 +123,12 @@ class Scene:
                 raydict[cam.image_name] = torch.cat([cam.rayo, cam.rayd], dim=1).cuda() # 1 x 6 x H x W
 
         for cam in self.train_cameras[resolution_scale]:
-            cam.rays = raydict[cam.image_name] # should be direct ?
+            if cam.image_name in raydict:
+                cam.rays = raydict[cam.image_name] # should be direct ?
 
         for cam in self.test_cameras[resolution_scale]:
-            cam.rays = raydict[cam.image_name] # should be direct ?
+            if cam.image_name in raydict:
+                cam.rays = raydict[cam.image_name] # should be direct ?
 
         if loader in ["immersivess", "immersivevalidss"]:# construct shared fisheyd remapping
             self.fisheyemapper = {}
