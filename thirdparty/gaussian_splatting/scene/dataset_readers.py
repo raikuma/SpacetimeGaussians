@@ -999,8 +999,6 @@ def readColmapCamerasTechnicolorSingle(args, cam_extrinsics, cam_intrinsics, ima
             image = np.empty(0)
 
             timestamp = (j-startime)/duration
-            if timestamp < args.time_duration[0] or timestamp > args.time_duration[1]:
-                continue
 
             if j == startime:
                 # cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, image_path=image_path, image_name=image_name, width=width, height=height, near=near, far=far, timestamp=(j-startime)/duration, pose=1, hpdirecitons=1, cxr=cxr, cyr=cyr)
